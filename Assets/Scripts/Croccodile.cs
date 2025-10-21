@@ -8,6 +8,11 @@ public class Croccodile : Enemy
         base.Initialize(50);
     }
 
+    public override void Behavior()
+    {
+        throw new System.NotImplementedException();
+    }
+
     // Update is called once per frame
     void Update()
     {
