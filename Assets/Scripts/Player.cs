@@ -52,8 +52,9 @@ public class Player : Character , IsShootable
             if ( banana != null)
             {
                 banana.InitWeapon(20 , this);
-                WaitTime = 0.0f;
+                
             }
+            WaitTime = 0.0f;
         }
     }
 }
