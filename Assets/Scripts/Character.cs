@@ -9,12 +9,17 @@ public abstract class Character : MonoBehaviour
         set { health = (value < 0) ? 0 : value; }
     }
 
+    public int MaxHealth;
+
     protected Animator anim;
     protected Rigidbody2D rb;
+    [SerializeField] private HealthBar healthBar;
+
 
     public void Initialize (int startHealth)
     {
         Health = startHealth;
+        MaxHealth = startHealth;
         Debug.Log($"{this.name} health is {this.Health}.");
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -23,6 +28,10 @@ public abstract class Character : MonoBehaviour
     {
         Health -= damage;
         Debug.Log($"{this.name} take {damage} damage, Current Health {Health}");
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(Health, MaxHealth);
+        }
 
         IsDead();
     }
@@ -39,7 +48,15 @@ public abstract class Character : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if (healthBar != null)
+        {
+            // (สมมติว่าสคริปต์ของคุณมีตัวแปรชื่อ Hp และ MaxHp)
+            healthBar.SetHealth(Health , MaxHealth);
+        }
+        else
+        {
+            Debug.LogWarning("Health bar is not assigned on " + gameObject.name);
+        }
     }
 
     // Update is called once per frame
